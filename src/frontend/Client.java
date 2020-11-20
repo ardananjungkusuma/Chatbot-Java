@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author SARK-29
  */
 public class Client extends javax.swing.JFrame {
-    
+
     private static DataInputStream dis;
     private static DataOutputStream dos;
     private static Socket so;
@@ -147,19 +147,23 @@ public class Client extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        try {
-            dos.writeUTF(txtChatUser.getText());
-            if (txtChatUser.getText().equalsIgnoreCase("/quit")) {
-                System.out.println("App has been terminated");
-                System.exit(0);
-            } else {                
-                String jawabanBot = dis.readUTF();
-                System.out.println("Respond "+jawabanBot);
-                labelChat.append("Kamu : " + txtChatUser.getText() + "\n" + jawabanBot + "\n");
-                txtChatUser.setText("");
-                txtChatUser.requestFocus();
+        if (!txtChatUser.getText().equalsIgnoreCase("")) {
+            try {
+                dos.writeUTF(txtChatUser.getText());
+                if (txtChatUser.getText().equalsIgnoreCase("/quit")) {
+                    System.out.println("App has been terminated");
+                    System.exit(0);
+                } else {
+                    String jawabanBot = dis.readUTF();
+                    System.out.println("Respond " + jawabanBot);
+                    labelChat.append("Kamu : " + txtChatUser.getText() + "\n" + jawabanBot + "\n");
+                    txtChatUser.setText("");
+                    txtChatUser.requestFocus();
+                }
+            } catch (IOException e) {
             }
-        } catch (IOException e) {
+        }else{
+            labelChat.append("Kamu:  \nBot : You cannot enter empty message\n");
         }
     }//GEN-LAST:event_btnSendActionPerformed
 
@@ -204,7 +208,7 @@ public class Client extends javax.swing.JFrame {
             so = new Socket("127.0.0.1", 1239);
             dis = new DataInputStream(so.getInputStream());
             dos = new DataOutputStream(so.getOutputStream());
-            
+
         } catch (IOException e) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
         }
