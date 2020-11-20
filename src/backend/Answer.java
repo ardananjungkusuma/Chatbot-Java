@@ -92,12 +92,9 @@ public class Answer {
         Answer a = new Answer();
         ArrayList<Answer> list = new Answer().search(keyword);
         String answer;
-        if (a.search(keyword).isEmpty()) {
-            answer = "Botnya gapaham maap";
-        } else {
-            Answer rand = Answer.getRandomAnswer(list);
-            answer = rand.getAnswer();
-        }
+        Answer rand = Answer.getRandomAnswer(list);
+        answer = rand.getAnswer();
+
         return answer;
     }
 
@@ -111,7 +108,7 @@ public class Answer {
                 ans.setCategory(rs.getString("category"));
                 hasilCategory.add(ans);
             }
-            
+
         } catch (Exception e) {
             ans.setCategory("undefined");
             hasilCategory.add(ans);

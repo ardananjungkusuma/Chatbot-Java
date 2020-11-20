@@ -20,7 +20,6 @@ import java.util.logging.Logger;
  * @author SARK-29
  */
 public class Client extends javax.swing.JFrame {
-
     
     private static DataInputStream dis;
     private static DataOutputStream dos;
@@ -130,29 +129,20 @@ public class Client extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        String chatUser;
-        String chatBot;
-        String kategori;
-        Answer answer = new Answer();
-        chatUser = txtChatUser.getText();
-        ArrayList<Answer> list = new Answer().filterAsk(txtChatUser.getText());
-        if (answer.filterAsk(txtChatUser.getText()).isEmpty()) {
-            kategori = "Bot : gapaham xixixi";
-            System.out.println(kategori);
-            chatBot = kategori;
-            labelChat.append("Kamu : " + chatUser + "\n" + chatBot + "\n");
-            txtChatUser.setText("");
-        } else {
-            txtChatUser.setText("");
-            for (Answer ans : list) {
-                kategori = ans.getCategory();
-                System.out.println("Bot : " + answer.cariLur(kategori));
-                chatBot = "Bot : " + answer.cariLur(kategori);
-                System.out.println(chatBot);
-                labelChat.append("Kamu : " + chatUser + "\n" + chatBot + "\n");
+        try {
+            dos.writeUTF(txtChatUser.getText());
+            if (txtChatUser.getText().equalsIgnoreCase(":quit")) {
+                System.out.println("App has been terminated");
+                System.exit(0);
+            } else {                
+                String jawabanBot = dis.readUTF();
+                System.out.println("Respond "+jawabanBot);
+                labelChat.append("Kamu : " + txtChatUser.getText() + "\n" + jawabanBot + "\n");
+                txtChatUser.setText("");
+                txtChatUser.requestFocus();
             }
+        } catch (IOException e) {
         }
-        txtChatUser.requestFocus();
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void txtChatUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChatUserActionPerformed
@@ -196,7 +186,7 @@ public class Client extends javax.swing.JFrame {
             so = new Socket("127.0.0.1", 1239);
             dis = new DataInputStream(so.getInputStream());
             dos = new DataOutputStream(so.getOutputStream());
-
+            
         } catch (IOException e) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
         }
