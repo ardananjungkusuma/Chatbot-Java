@@ -48,6 +48,8 @@ public class Client extends javax.swing.JFrame {
         labelChat = new javax.swing.JTextArea();
         txtChatUser = new javax.swing.JTextField();
         btnSend = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chatbot By Ardan Riza");
@@ -84,6 +86,12 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Lithos Pro Regular", 1, 12)); // NOI18N
+        jLabel1.setText("Bot Masih Dalam Tahap Pengembangan");
+
+        jLabel2.setFont(new java.awt.Font("Lithos Pro Regular", 1, 12)); // NOI18N
+        jLabel2.setText("Untuk Keluar Aplikasi ketik /quit");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,6 +112,12 @@ public class Client extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSend)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +135,11 @@ public class Client extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scrollPaneChat, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -131,7 +149,7 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             dos.writeUTF(txtChatUser.getText());
-            if (txtChatUser.getText().equalsIgnoreCase(":quit")) {
+            if (txtChatUser.getText().equalsIgnoreCase("/quit")) {
                 System.out.println("App has been terminated");
                 System.exit(0);
             } else {                
@@ -194,6 +212,8 @@ public class Client extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSend;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea labelChat;
     private javax.swing.JScrollPane scrollPaneChat;

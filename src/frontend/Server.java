@@ -36,12 +36,12 @@ public class Server {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             System.out.println("Server Running On Port " + portServer);
-            while (!message.equalsIgnoreCase(":quit")) {
+            while (!message.equalsIgnoreCase("/quit")) {
                 message = dis.readUTF();
                 String kategori;
                 Answer answer = new Answer();
                 ArrayList<Answer> list = new Answer().filterAsk(message);
-                if (message.equalsIgnoreCase(":quit")) {
+                if (message.equalsIgnoreCase("/quit")) {
                     System.out.println("Application Stopped");
                     System.exit(0);
                 } else if (answer.filterAsk(message).isEmpty()) {
